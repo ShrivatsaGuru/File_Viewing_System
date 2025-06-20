@@ -1,0 +1,15 @@
+services:
+  web-server:
+    image: web-server-image
+    container_name: web-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/web/uploads:/app/uploads
+    networks:
+      - filewebnet
+
+networks:
+  filewebnet:
+    external: true
+
