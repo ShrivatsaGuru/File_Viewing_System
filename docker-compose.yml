@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  file-server:
+    build: .
+    ports:
+      - "8081:8081"
+    volumes:
+      - /home/file/uploads:/home/file/uploads
+    restart: unless-stopped
+    networks:
+      - file-network
+
+networks:
+  file-network:
+    driver: bridge

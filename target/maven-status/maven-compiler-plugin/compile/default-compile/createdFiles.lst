@@ -1,0 +1,4 @@
+com/fileserver/FileServerApplication.class
+com/fileserver/model/FileInfo.class
+com/fileserver/service/FileService.class
+com/fileserver/controller/FileController.class
