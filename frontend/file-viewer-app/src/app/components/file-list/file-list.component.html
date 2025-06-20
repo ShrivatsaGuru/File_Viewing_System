@@ -1,0 +1,87 @@
+<div class="container">
+  <h1>File Viewer</h1>
+  
+  <div class="refresh-section">
+    <button (click)="loadFiles()" class="btn btn-primary" [disabled]="loading">
+      <span *ngIf="loading">Loading...</span>
+      <span *ngIf="!loading">Refresh Files</span>
+    </button>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div class="content-wrapper">
+    <!-- File List -->
+    <div class="file-list-section">
+      <h2>Available Files</h2>
+      
+      <div *ngIf="loading" class="loading">
+        Loading files...
+      </div>
+
+      <div *ngIf="!loading && files.length === 0" class="no-files">
+        No files found in the upload directory.
+      </div>
+
+      <div *ngIf="!loading && files.length > 0" class="file-list">
+        <div 
+          *ngFor="let file of files" 
+          class="file-item"
+          [class.selected]="selectedFile?.fileName === file.fileName"
+          (click)="selectFile(file)">
+          
+          <div class="file-info">
+            <div class="file-name">{{ file.fileName }}</div>
+            <div class="file-details">
+              Type: {{ file.fileType.toUpperCase() }} | Size: {{ formatFileSize(file.fileSize) }}
+            </div>
+          </div>
+          
+          <div class="file-actions">
+            <button 
+              (click)="downloadFile(file.fileName); $event.stopPropagation()" 
+              class="btn btn-secondary btn-sm">
+              Download
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- File Viewer -->
+    <div class="file-viewer-section">
+      <h2>File Preview</h2>
+      
+      <div *ngIf="!selectedFile" class="no-selection">
+        Select a file to view its contents
+      </div>
+
+      <div *ngIf="selectedFile" class="file-preview">
+        <div class="preview-header">
+          <h3>{{ selectedFile?.fileName }}</h3>
+          <button (click)="downloadFile(selectedFile?.fileName)" class="btn btn-primary btn-sm">
+            Download
+          </button>
+        </div>
+
+        <!-- Text File Content -->
+        <div *ngIf="selectedFile?.fileType && isTextFile(selectedFile.fileType)" class="text-content">
+          <pre>{{ fileContent }}</pre>
+        </div>
+
+        <!-- Image File Content -->
+        <div *ngIf="selectedFile?.fileType && isImageFile(selectedFile.fileType)" class="image-content">
+          <img [src]="fileUrl" [alt]="selectedFile?.fileName" class="preview-image">
+        </div>
+
+        <!-- PDF File Content -->
+        <div *ngIf="selectedFile?.fileType && isPdfFile(selectedFile.fileType)" class="pdf-content">
+          <iframe [src]="fileUrl" class="pdf-viewer"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

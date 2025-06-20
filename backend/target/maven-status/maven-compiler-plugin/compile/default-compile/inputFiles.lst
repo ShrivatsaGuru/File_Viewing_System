@@ -1,0 +1,6 @@
+/home/web/webserver-project/backend/src/main/java/com/webserver/WebServerApplication.java
+/home/web/webserver-project/backend/src/main/java/com/webserver/model/FileInfo.java
+/home/web/webserver-project/backend/src/main/java/com/webserver/controller/WebFileController.java
+/home/web/webserver-project/backend/src/main/java/com/webserver/config/WebConfig.java
+/home/web/webserver-project/backend/src/main/java/com/webserver/service/FileServerService.java
+/home/web/webserver-project/backend/src/main/java/com/webserver/config/AppConfig.java
